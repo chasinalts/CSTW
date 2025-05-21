@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm install typescript && tsc && vite build",
     "simple-build": "vite build",
     "preview": "vite preview",
     "test": "vitest"
