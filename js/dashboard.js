@@ -377,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    questionsList.addEventListener('click', (e) => {
+    questionsList.addEventListener('click', async (e) => {
         if (e.target.classList.contains('edit-question-btn')) {
             const id = parseInt(e.target.dataset.id);
             openQuestionModal(id);
