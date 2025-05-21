@@ -1,5 +1,5 @@
 [build]
-  command = "npm install -g typescript && npm install && npm run build"
+  command = "npm install && npx tsc && vite build"
   publish = "dist"
 
 [[redirects]]
