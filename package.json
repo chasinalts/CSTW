@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "/usr/local/bin/tsc && vite build",
+    "build": "npx tsc && vite build",
     "simple-build": "vite build",
     "preview": "vite preview",
     "test": "vitest"
@@ -20,11 +20,12 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
+    "@types/node": "^22.15.21",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.0.0",
     "typescript": "^5.8.3",
     "vite": "^4.0.0",
-    "vitest": "^0.34.0"
+    "vitest": "^0.34.6"
   }
 }
