@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMET Scanner Wizard - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">COMET Scanner Wizard</div>
+            <ul>
+                <li><a href="index.html">Home Screen</a></li>
+                <li><a href="wizard.html">Template Wizard</a></li>
+                <li><a href="dashboard.html">Admin Dashboard</a></li> 
+            </ul>
+            <div class="user-info">
+                <span class="user-info-span">Guest</span>
+                <button class="login-btn" onclick="login()" style="display: none;">Login</button>
+                <a href="#" class="logout-link" style="display: none;">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="main-title-banner">
+            <h1>COMET SCANNER TEMPLATE WIZARD</h1>
+            <div id="banner-image-container">
+                <!-- Banner image will be loaded here by owner -->
+                <img src="#" alt="Site Banner" id="site-banner-img" style="display: none; max-width: 100%; height: auto;">
+                <p id="banner-placeholder" style="display: block;">Banner image not yet uploaded by owner.</p>
+            </div>
+        </section>
+
+        <section id="comet-genesis">
+            <h2>What is COMET?</h2>
+            <p>COMET = Co-integrated Observational Market Evaluation Tool.</p>
+            <p>A COMET Scanner journeys a few steps farther than traditional scanners. Through the use of different visualization techniques as well as increasing an indicator's settings to extreme levels, similarities in the edge case signals and a level of predictability in price action tends to reveal itself. These "edge case" signals may be very far-and-few between when observing the scripts logic on a single asset, but when using it on an entire market, opportunities tend to arise quite frequently.</p>
+        </section>
+
+        <section id="image-gallery-section">
+            <h2>COMET Scanner Gallery</h2>
+            <div class="image-gallery">
+                <!-- Images will be dynamically loaded or predefined -->
+                <img src="https://via.placeholder.com/300x200?text=Scanner+1" alt="Scanner Image 1" onclick="expandImage(this.src)">
+                <img src="https://via.placeholder.com/300x200?text=Scanner+2" alt="Scanner Image 2" onclick="expandImage(this.src)">
+                <img src="https://via.placeholder.com/300x200?text=Scanner+3" alt="Scanner Image 3" onclick="expandImage(this.src)">
+                <img src="https://via.placeholder.com/300x200?text=Scanner+4" alt="Scanner Image 4" onclick="expandImage(this.src)">
+                <img src="https://via.placeholder.com/300x200?text=Scanner+5" alt="Scanner Image 5" onclick="expandImage(this.src)">
+                <img src="https://via.placeholder.com/300x200?text=Scanner+6" alt="Scanner Image 6" onclick="expandImage(this.src)">
+            </div>
+        </section>
+
+        <section id="start-wizard-button-section">
+            <button id="start-wizard-btn">Click here to be guided through the COMET Scanner Template Wizard</button>
+        </section>
+
+        <!-- Modal for expanded image -->
+        <div id="image-modal" class="modal" onclick="this.style.display='none'">
+            <span class="close-modal" onclick="document.getElementById('image-modal').style.display='none'">&times;</span>
+            <img class="modal-content" id="expanded-img">
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 COMET Scanner Wizard</p>
+        <p>Version 1.0.0</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

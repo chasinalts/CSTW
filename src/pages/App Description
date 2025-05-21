@@ -1,0 +1,58 @@
+Owner's Account Pages
+Here's a breakdown of the app's functionality as you described it, organized into the three main pages but the dashboard accessible to the owner:
+Page 1: Owner's Dashboard (Settings and Management)
+*** This page will only be accessible to the verified owner and will serve as a central hub for ongoing management and adjustments ***
+- Questions Builder: the selection that will be presented to the user will be the option for them to select if they would like the template in its entirety for them to parse through it themselves, or if they would like to go through the process of the TEMPLATE BUILDER WIZARD. If the user selects to just be given the entire template in its entirety, then the app needs to load the template in its entirety that was provided by the owner. Rather, if the user selects to begin the process of the TEMPLATE BUILDER WIZARD, then the app needs to proceed with the questions to present to the user in the order that the owner has ordered them (which the owner needs to be able to re-order the questions in whatever order they desire in the owners dashboard.). The user should be given the ability to skip or go back to any question in the list. If any of the questions are skipped without being answered, then this needs to be visually represented in the correct space where the code would have gone if answered in the live updated template in the floating window. The owner will add 1 of a possible three different categories of code in the code snippets section: 
+	1	The code of the template in its entirety without anything removed (This is output to the user if this is their desired output from the app) or
+	2	The code that will be in almost every COMET Scanner no matter how the questions are answered (if the entire code is not desired by the user) or 
+	3	The code that will be the drag-and-drop code snippets that will be automatically added to the live updated code as the user makes their way through the questions
+
+- Question Types for the owner to select from:
+	1. String (using placeholders):  owner needs to upload an image that will help the user to understand more about the question and how the users response will be presented in the codes logic. the user should be given a blank line to input their text on and the owner needs to include what the placeholder is that the users input will take the place of in the code.
+	2. Boolean (true/false buttons): user asked to select between one of the two options. As the owner is building this type of question, they also need to select which code snippet is going to be assigned to each answer as well as the image that will be presented with each answer when the question is asked.
+	3. Multiple Choice (multiple options to choose from): For each option, the owner will upload an image that will help visually represent that answer if chosen. The owner also needs to select which code snippet ias assigned to each possible answer.
+
+Page 2: Main Page
+This will be the first page all users will see upon logging in and will contain the following easily identifiable sections:
+	•	Main Title: "COMET SCANNER TEMPLATE WIZARD"
+	•	the sites Banner: A dedicated space below the main title where ONLY the owner can upload a banner for the app/site but everyone will see it posted here.
+	•	Genesis of the "COMET" Scanner: A section clearly defining the acronym "COMET": COMET = Cointegrated Observational Market Evaluation Tool. A COMET Scanner journeys a few steps farther than traditional scanners. Through the use of different visualization techniques as well as increasing an indicator's settings to extreme levels, similarities in the edge case signals and a level of predictability in price action tends to reveal itself. These "edge case" signals may be very far-and-few between when observing the scripts logic on a single asset, but when using it on an entire market, opportunities tend to arise quite frequently.
+	•	Image Gallery: A visually appealing section displaying a gallery/wall of images related to different COMET Scanner possibilities. The corners and sides of the images should be in close proximity to each other. Clicking on an image should expand it to fill the entire screen in its original resolution. The gallery should have the characteristic of light being seen in the background, similar to the uploaded banner.
+	•	Button for any user to Start the Template Wizard builder: A prominent button below the image gallery, that clearly stands out, titled "Click here to be guided through the  COMET Scanner Template Wizard" to build a personalized Comet Scanner Template. Clicking this button (or navigating to the second tab/page) will initiate the process for the user to be taken through the steps of the template Wizard.
+
+
+Page 3: The COMET Scanner Template Wizard
+	•	The second page that will be available for the owner and all of the users is the COMET Scanner Template Wizard
+	•	The bottom of the page will be all previously saved templates that were created, and saved by the user which the user can name each template that being saved or the name can be automatically generated, depending on the answers provided through the wizard.
+	•	The user may save their progress through the questions at any point and be able to go back to it. So included with their previously completed, saved templates will be any templates that they have started the process, but not completed.
+	•	On the right of the screen will be a separate floating window that (as long as it is not closed by the user) will float on top of this 2nd tab of the APP that the user can move around the screen and resize.
+	•	This window will show 1 of 2 things: 
+	1	if the user is selecting any of their previously saved templates then it will show whatever saved template has been most recently selected by them 
+	2	if they are going through the wizard and answering the questions, then this window will show the live update of the current template that they are building according to which questions have been answered thus far
+	•	Wizards Process: the user will be presented with questions that they will have to either type in the answers or select one answer amongst a few presented. Every possible answer will have 2 things associated with it: 
+	1	An image attached to each answer that will provide the user with an example of how that answer (if selected) would be visually represented through their final outputted template.
+	2	The code snippet added in to the final output template logic according to the answer selected by the user.
+
+
+
+
+	
+
+
+
+FUTURE UPDATES:
+Page 2: The COMET Scanner Template Wizard, ID Generator, & Custom Function Generator
+	•	these three sections will be sectioned off from each other and will also be independent of each other
+	•	The second page that will be available for the owner and all of the users is the TickerID and Label NameID Generator, and Custom Function Generator, and the COMET Scanner Template Wizard
+	•	The first part of the page will be all previously saved templates that were created, and saved by the user which the user can name each template that being saved or the name can be automatically generated, depending on the answers provided through the wizard.
+	•	The user may save their progress through the questions at any point and be able to go back to it. So included with their previously completed, saved templates will be any templates that they have started the process, but not completed.
+	•	On the right of the screen will be a separate floating window that the user can move around the screen and resize.
+	•	This window will show 1 of 2 things: 
+	1	if the user is selecting any of their previously saved templates then it will show whatever saved template has been most recently selected by them 
+	2	if they are going through the wizard and answering the questions, then this window will show the live update of the current template that they are building according to which questions have been answered thus far
+	•	TickerID and Label NameID Generator: This will be the 2 strings that will be output by the AI in this section that will format the TickerID string and Label NameID string that will be needed in your COMET Scanner. These will be the list of assets that you are scanning with your COMET Scanner.
+	•	Custom Function Generator: This will be the heart of your custom COMET Scanner. The user will input to the AI in this section either a description of a relatively simple logic that they will use to scan against all of the assets that were input in the previous ID Generator section OR they can input an indicator that they have the code for. In the end, the AI will output the custom logic into a single function or a few functions (depending on the logic) with the correct variables output, Ted from the function call into a tuple as well as the inputs that are needed/used in the custom function. All of which will be used in the users custom COMET Scanner to produce their desired outcome from the COMET Scanner.
+	•	Wizards Process: the user will be presented with questions that they will have to either type in the answers or select one answer amongst a few presented. Every possible answer will have 2 things associated with it: 
+	1	An image attached to each answer that will provide the user with an example of how that answer (if selected) would be visually represented through their final outputted template.
+	2	The code snippet that will be added in to the final outputted templates logic.
+

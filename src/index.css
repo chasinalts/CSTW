@@ -1,0 +1,16 @@
+/* Import holographic styles */
+@import './styles/holographic.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  /* Add custom base styles here */
+  body.futuristic-theme {
+    background: linear-gradient(135deg, #050510, #0a0a20);
+    color: rgba(220, 240, 255, 0.9);
+    min-height: 100vh;
+  }
+}

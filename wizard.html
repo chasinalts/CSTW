@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMET Scanner - Template Wizard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">COMET Scanner Wizard</div>
+            <ul>
+                <li><a href="index.html">Home Screen</a></li>
+                <li><a href="wizard.html">Template Wizard</a></li>
+                <li><a href="dashboard.html">Admin Dashboard</a></li>
+            </ul>
+            <div class="user-info">
+                <span class="user-info-span">Guest</span>
+                <button class="login-btn" onclick="login()" style="display: none;">Login</button>
+                <a href="#" class="logout-link" id="logout-link-wizard" style="display: none;">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="wizard-main">
+        <section id="template-creation-method">
+            <h2>Choose Your Template Creation Method</h2>
+            <div class="creation-options">
+                <div class="option-card" id="full-template-option">
+                    <h3>Full Template</h3>
+                    <p>The administrator has not uploaded a full template yet. Please use the Template Builder Wizard instead.</p>
+                    <button id="load-full-template-btn" disabled>Not Available</button>
+                </div>
+                <div class="option-card" id="wizard-builder-option">
+                    <h3>Template Builder Wizard</h3>
+                    <p>Build your template step-by-step by answering questions. Customize the template to your specific needs.</p>
+                    <button id="start-template-builder-btn">Start Wizard</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="wizard-questions-area" style="display:none;">
+            <!-- Questions will be loaded here -->
+            <div id="question-navigation">
+                <button id="prev-question-btn">Previous</button>
+                <span id="question-indicator">Question X of Y</span>
+                <button id="next-question-btn">Next</button>
+                <button id="skip-question-btn">Skip</button>
+            </div>
+            <div id="current-question-content">
+                <!-- Current question displayed here -->
+            </div>
+            <button id="save-progress-btn">Save Progress</button>
+            <button id="finish-wizard-btn">Finish & Save Template</button>
+        </section>
+
+        <section id="saved-templates">
+            <h2>Saved Templates</h2>
+            <div id="templates-list">
+                <p>No saved templates yet. Create and save a template to see it here.</p>
+                <!-- Saved templates will be listed here -->
+            </div>
+        </section>
+
+    </main>
+
+    <aside id="live-code-preview-window">
+        <div class="preview-header">
+            <h4>Live Code Preview</h4>
+            <button id="close-preview-btn">&times;</button>
+        </div>
+        <pre id="code-preview-content">// No code generated yet. Answer questions or select a template.</pre>
+    </aside>
+
+    <footer>
+        <p>&copy; 2024 COMET Scanner Wizard</p>
+        <p>Version 1.0.0</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/wizard.js"></script>
+</body>
+</html>
