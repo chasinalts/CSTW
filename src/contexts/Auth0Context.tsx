@@ -76,7 +76,7 @@ export function Auth0ProviderWithNavigate({ children }: { children: ReactNode })
   const domain = import.meta.env.VITE_AUTH0_DOMAIN;
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
   const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
-  const redirectUri = window.location.origin;
+  const redirectUri = window.location.origin + '/callback';
 
   if (!domain || !clientId) {
     throw new Error('Auth0 domain and client ID must be defined');

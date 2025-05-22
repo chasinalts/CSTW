@@ -1,8 +1,8 @@
-import { useAuth0Context } from '../contexts/Auth0Context';
+import { useAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 
 const RoleBasedRedirect = () => {
-  const { currentUser } = useAuth0Context();
+  const { currentUser } = useAuth();
   if (!currentUser) return <Navigate to="/login" replace />;
   if (currentUser.is_owner || currentUser.role === 'admin') {
     return <Navigate to="/dashboard" replace />;

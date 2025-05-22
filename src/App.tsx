@@ -17,7 +17,7 @@ const Login = lazy(() => import('./pages/Login'));
 const Signup = lazy(() => import('./pages/Signup'));
 const ScannerWizard = lazy(() => import('./pages/ScannerWizard'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
-
+const Callback = lazy(() => import('./pages/callback'));
 
 import Home from './pages/Home';
 
@@ -134,6 +134,15 @@ function AppContent() {
         }
       />
 
+      {/* Auth0 Callback Route */}
+      <Route
+        path="/callback"
+        element={
+          <Suspense fallback={<SuspenseFallback message="Processing authentication..." />}>
+            <Callback />
+          </Suspense>
+        }
+      />
 
       {/* Protected Routes */}
       <Route
