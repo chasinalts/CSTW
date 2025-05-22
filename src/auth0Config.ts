@@ -6,7 +6,7 @@ export const auth0Config: Auth0ClientOptions = {
   domain: 'dev-mytcazei5krtbkqw.us.auth0.com',
   clientId: import.meta.env.VITE_AUTH0_CLIENT_ID || 'Mp0HS9ZAmmgPVbpDU3lCbe8vr4cQgT6L',
   authorizationParams: {
-    redirect_uri: `${window.location.origin}/callback`,
+    redirect_uri: window.location.origin,
     audience: import.meta.env.VITE_AUTH0_AUDIENCE,
     scope: 'openid profile email',
   },
@@ -15,7 +15,7 @@ export const auth0Config: Auth0ClientOptions = {
   // Enable Universal Login experience
   useFormData: false,
   // Skip the /authorize endpoint hit before redirecting to Universal Login
-  skipRedirectCallback: true,
+  skipRedirectCallback: false,
 };
 
 // User roles and permissions
