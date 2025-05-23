@@ -23,10 +23,10 @@ Ensure the following environment variables are set in your Netlify dashboard:
 
 ## Auth0 Setup
 
-- [ ] Configure Auth0 application settings
-- [ ] Set up Auth0 API
-- [ ] Configure Auth0 rules or actions for user metadata
-- [ ] Set up proper CORS settings in Auth0
+- [x] Configure Auth0 application settings
+- [x] Set up Auth0 API
+- [x] Configure Auth0 rules or actions for user metadata
+- [x] Set up proper CORS settings in Auth0
 
 ## Netlify Setup
 
@@ -50,7 +50,7 @@ Ensure the following environment variables are set in your Netlify dashboard:
 ## Final Checks
 
 - [x] Run a local build to verify everything works
-- [ ] Test authentication flow
+- [x] Test authentication flow
 - [ ] Test file uploads and storage
 - [x] Verify environment variables are being loaded correctly
 - [ ] Check that all pages load properly

@@ -1,27 +1,14 @@
 #!/bin/bash
 
-# Create dist directory if it doesn't exist
-mkdir -p dist/js
-mkdir -p dist/css
-mkdir -p dist/assets
+# Build the React application
+echo "Building React application..."
+npm run build
 
-# Copy HTML files and Netlify configuration files
-cp *.html dist/
+# Copy Netlify configuration files
 cp _headers dist/ 2>/dev/null || :
 
-# Copy JS files
-cp js/*.js dist/js/
-
-# Copy CSS files
-cp css/*.css dist/css/
-
-# Copy any other static assets if needed
-if [ -d "assets" ]; then
-  cp -r assets/* dist/assets/
-fi
-
 # Create a runtime-env.js file that will load environment variables from the Netlify function
-cat > dist/js/runtime-env.js << EOL
+cat > dist/assets/runtime-env.js << EOL
 // Runtime environment variables - loaded from Netlify function
 window.ENV = {};
 
@@ -47,4 +34,4 @@ if (window.location.hostname !== 'localhost') {
 }
 EOL
 
-echo "Files copied to dist directory. Ready for deployment."
+echo "Build complete. Ready for deployment."

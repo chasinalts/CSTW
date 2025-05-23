@@ -1,13 +1,14 @@
 // Auth0 configuration file that initializes the Auth0 client
 import { Auth0ClientOptions } from '@auth0/auth0-react';
+import { getEnvVar } from './utils/loadEnvVars';
 
 // Auth0 configuration options
 export const auth0Config: Auth0ClientOptions = {
-  domain: 'dev-mytcazei5krtbkqw.us.auth0.com',
-  clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
+  domain: getEnvVar('VITE_AUTH0_DOMAIN', 'dev-mytcazei5krtbkqw.us.auth0.com'),
+  clientId: getEnvVar('VITE_AUTH0_CLIENT_ID'),
   authorizationParams: {
     redirect_uri: window.location.origin,
-    audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+    audience: getEnvVar('VITE_AUTH0_AUDIENCE'),
     scope: 'openid profile email',
   },
   cacheLocation: 'localstorage',

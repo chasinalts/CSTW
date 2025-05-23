@@ -2,7 +2,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Auth0Provider, Auth0ProviderOptions, useAuth0 } from '@auth0/auth0-react';
-import { supabaseClient } from '../../js/supabase-client.js';
+import { supabaseClient } from '../supabaseConfig';
 
 // User roles
 export const USER_ROLE = 'user';
