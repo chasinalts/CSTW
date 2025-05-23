@@ -3,7 +3,7 @@ import React from 'react';
 import { useState, useEffect, useCallback } from '../../utils/react-imports';
 import { useLazyLoading } from '../../hooks/useLazyLoading';
 import { resizeImage } from '../../utils/imageHandlers';
-import { getPublicUrl as getFilePreview } from '../../utils/supabaseStorage';
+import { getFilePreview } from '../../utils/supabaseStorage';
 
 interface LazyImageProps {
   src: string;
@@ -98,8 +98,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
   // Check if this is a Firebase Storage URL
   const isFirebaseUrl = src.includes('firebasestorage.googleapis.com');
 
-  // Check if this is a legacy Appwrite Storage URL (for backward compatibility)
-  const isLegacyUrl = src.includes('appwrite.io') || src.includes('cloud.appwrite.io');
+
 
   // Check if this is a Supabase Storage URL
   const isSupabaseUrl = src.includes('supabase.co') || src.includes('supabase.in');
@@ -138,10 +137,9 @@ const LazyImage: React.FC<LazyImageProps> = ({
           }
         }
 
-        // For legacy URLs, handle them specially (backward compatibility)
-        else if (isLegacyUrl) {
+
           try {
-            console.log('Processing legacy URL:', src);
+
 
             // Check if it's already a preview URL
             if (src.includes('preview')) {
@@ -193,9 +191,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
                 }
               }
             }
-          } catch (error) {
-            console.error('Error processing legacy URL:', error);
-            if (isMounted) {
+
               // Add a cache-busting parameter to the URL
               const cacheBuster = `?t=${Date.now()}`;
               const urlWithCacheBuster = src.includes('?') ? `${src}&t=${Date.now()}` : `${src}${cacheBuster}`;

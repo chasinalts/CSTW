@@ -10,8 +10,6 @@ Ensure the following environment variables are set in your Netlify dashboard:
 - [x] `VITE_AUTH0_CLIENT_ID` - Your Auth0 application client ID
 - [x] `VITE_AUTH0_AUDIENCE` - Your Auth0 API audience identifier
 - [x] `VITE_SUPABASE_DATABASE_URL` - (If needed) Direct Supabase PostgreSQL connection string
-- [x] `VITE_TURSO_DATABASE_URL` - (If using Turso) Turso database URL
-- [x] `VITE_TURSO_AUTH_TOKEN` - (If using Turso) Turso authentication token
 - [x] `SECRETS_SCAN_ENABLED` - Set to "false" to disable secrets scanning
 
 ## Supabase Setup

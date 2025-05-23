@@ -144,61 +144,7 @@ vi.mock('../utils/supabaseImageStorage', () => ({
   getBucketId: vi.fn().mockImplementation((bucketType) => bucketType),
 }));
 
-// Mock Appwrite storage functions
-vi.mock('../utils/appwriteStorage', () => ({
-  uploadFile: vi.fn().mockImplementation((file, bucketType, userId) => {
-    return Promise.resolve({
-      file: {
-        $id: `${bucketType}-${Date.now()}`,
-        name: file.name,
-        mimeType: file.type,
-        sizeOriginal: file.size,
-      },
-      metadata: {
-        $id: `metadata-${Date.now()}`,
-        name: file.name,
-        file_id: `${bucketType}-${Date.now()}`,
-        bucket_id: bucketType,
-        uploaded_by: userId,
-        uploaded_at: new Date().toISOString(),
-        image_type: bucketType,
-      },
-    });
-  }),
-  getFilePreview: vi.fn().mockImplementation((fileId, bucketType) => {
-    return `https://example.com/${bucketType}/preview/${fileId}.jpg`;
-  }),
-  listFiles: vi.fn().mockImplementation((bucketType) => {
-    return Promise.resolve({
-      files: [
-        {
-          $id: `${bucketType}-1`,
-          name: `${bucketType}1.jpg`,
-          mimeType: 'image/jpeg',
-        },
-        {
-          $id: `${bucketType}-2`,
-          name: `${bucketType}2.jpg`,
-          mimeType: 'image/jpeg',
-        },
-      ],
-      metadata: [
-        {
-          $id: `metadata-1`,
-          file_id: `${bucketType}-1`,
-          image_type: bucketType,
-        },
-        {
-          $id: `metadata-2`,
-          file_id: `${bucketType}-2`,
-          image_type: bucketType,
-        },
-      ],
-    });
-  }),
-  deleteFile: vi.fn().mockResolvedValue(true),
-  getBucketId: vi.fn().mockImplementation((bucketType) => bucketType),
-}));
+
 
 // Mock database service
 vi.mock('../utils/databaseService', () => ({
@@ -268,7 +214,7 @@ vi.mock('../utils/imageHandlers', () => ({
     onSuccess(imageId, imageUrl);
     return Promise.resolve();
   }),
-  handleAppwriteImageUpload: vi.fn().mockImplementation((file, type, onSuccess) => {
+  
     const imageId = `${type}-${Date.now()}`;
     const imageUrl = `https://example.com/${type}/${imageId}.jpg`;
     onSuccess(imageId, imageUrl);

@@ -9,7 +9,6 @@ import { ThemeProvider } from '../contexts/ThemeContext';
 import { ToastProvider } from '../components/ui/Toast';
 import Home from '../pages/Home';
 import { mockSupabaseClient } from './mocks/supabaseMock';
-import { mockAppwriteClient, mockAppwriteStorage, mockAppwriteDatabases } from './mocks/appwriteMock';
 
 // Import the mocks from setupTests.ts
 import '../setupTests';
