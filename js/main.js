@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startWizardBtn = document.getElementById('start-wizard-btn');
     if (startWizardBtn) {
         startWizardBtn.addEventListener('click', () => {
-            window.location.href = 'wizard.html';
+            window.location.href = '/scanner';
         });
     }
 
