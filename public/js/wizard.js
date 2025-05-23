@@ -354,9 +354,4 @@ document.addEventListener('DOMContentLoaded', () => {
             templateCreationMethodSection.style.display = 'block';
         }
         liveCodePreviewWindow.style.display = 'flex'; // Show preview window
-                alert(`Template loaded: ${template.name}`);
-            }
-        
-            // Initial load
-            loadInitialData();
-        });
+        alert(`Template loaded: ${template.name}`);

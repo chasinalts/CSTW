@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "copy-static": "node copy-static-files.js",
+    "prebuild": "npm run copy-static",
     "build": "vite build",
     "simple-build": "vite build",
     "preview": "vite preview",
