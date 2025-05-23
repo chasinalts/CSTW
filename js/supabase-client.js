@@ -1,11 +1,28 @@
 // Supabase Configuration
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Try to get Supabase URL and key from different sources
+let SUPABASE_URL = null;
+let SUPABASE_ANON_KEY = null;
+
+// Try import.meta.env first (Vite)
+try {
+    SUPABASE_URL = import.meta?.env?.VITE_SUPABASE_URL;
+    SUPABASE_ANON_KEY = import.meta?.env?.VITE_SUPABASE_ANON_KEY;
+} catch (e) {
+    console.log('Could not access import.meta.env, trying localStorage...');
+}
+
+// If not found, try localStorage (set by env-config.js)
+if (!SUPABASE_URL) {
+    SUPABASE_URL = localStorage.getItem('supabase_url');
+}
+if (!SUPABASE_ANON_KEY) {
+    SUPABASE_ANON_KEY = localStorage.getItem('supabase_anon_key');
+}
 
 let supabase = null;
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.error('Supabase URL or Anon Key is missing. Make sure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your environment.');
+    console.error('Supabase URL or Anon Key is missing. Make sure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your environment or localStorage.');
 } else {
     try {
         if (window.supabase && typeof window.supabase.createClient === 'function') {
@@ -24,7 +41,7 @@ window.supabaseClient = supabase;
 
 // Example functions (can be expanded and moved to specific modules/files)
 
-// --- Generic Data Fetching/Saving --- 
+// --- Generic Data Fetching/Saving ---
 async function fetchData(tableName, selectQuery = '*') {
     if (!supabase) return { data: null, error: 'Supabase client not initialized' };
     try {
