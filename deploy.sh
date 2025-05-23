@@ -19,14 +19,17 @@ if [ -d "assets" ]; then
   cp -r assets/* dist/assets/
 fi
 
-# Copy environment variables to a JS file that can be loaded in the browser
+# Create a placeholder runtime-env.js file
+# This will be populated by Netlify's post-processing script
 cat > dist/js/runtime-env.js << EOL
-// Runtime environment variables
+// Runtime environment variables - populated during Netlify post-processing
 window.ENV = {
-  VITE_AUTH0_CLIENT_ID: "${VITE_AUTH0_CLIENT_ID:-''}",
-  VITE_AUTH0_AUDIENCE: "${VITE_AUTH0_AUDIENCE:-''}",
-  VITE_SUPABASE_URL: "${VITE_SUPABASE_URL:-''}",
-  VITE_SUPABASE_ANON_KEY: "${VITE_SUPABASE_ANON_KEY:-''}"
+  // These are placeholders that will be replaced with actual values at runtime
+  VITE_AUTH0_CLIENT_ID: "PLACEHOLDER_AUTH0_CLIENT_ID",
+  VITE_AUTH0_AUDIENCE: "PLACEHOLDER_AUTH0_AUDIENCE",
+  VITE_AUTH0_DOMAIN: "PLACEHOLDER_AUTH0_DOMAIN",
+  VITE_SUPABASE_URL: "PLACEHOLDER_SUPABASE_URL",
+  VITE_SUPABASE_ANON_KEY: "PLACEHOLDER_SUPABASE_ANON_KEY"
 };
 EOL
 

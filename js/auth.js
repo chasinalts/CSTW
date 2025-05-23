@@ -7,7 +7,7 @@ let isAuthenticated = false;
 async function initAuth0() {
     try {
         // Get Auth0 configuration from environment variables or use defaults
-        const domain = 'dev-mytcazei5krtbkqw.us.auth0.com';
+        const domain = import.meta?.env?.VITE_AUTH0_DOMAIN || localStorage.getItem('auth0_domain') || 'dev-mytcazei5krtbkqw.us.auth0.com';
         const clientId = import.meta?.env?.VITE_AUTH0_CLIENT_ID || localStorage.getItem('auth0_client_id');
         const audience = import.meta?.env?.VITE_AUTH0_AUDIENCE || localStorage.getItem('auth0_audience');
 

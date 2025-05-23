@@ -7,12 +7,49 @@
   to = "/index.html"
   status = 200
 
+# Redirect for Netlify Functions
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
 [build.environment]
   NODE_ENV = "production"
+  # Empty environment variables - these will be set in the Netlify dashboard
   VITE_SUPABASE_URL = ""
   VITE_SUPABASE_ANON_KEY = ""
   VITE_SUPABASE_DATABASE_URL = ""
   VITE_TURSO_DATABASE_URL = ""
   VITE_TURSO_AUTH_TOKEN = ""
-  AUTH0_CLIENT_ID = ""
-  AUTH0_AUDIENCE = ""
+  VITE_AUTH0_CLIENT_ID = ""
+  VITE_AUTH0_AUDIENCE = ""
+  VITE_AUTH0_DOMAIN = ""
+  # Disable secrets scanning
+  SECRETS_SCAN_ENABLED = "false"
+
+# Use our custom plugins
+[[plugins]]
+  package = "/netlify/plugins/inject-env-vars"
+
+[[plugins]]
+  package = "/netlify/headers/security-headers"
+
+# Add security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.auth0.com https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.supabase.co https://via.placeholder.com; connect-src 'self' https://*.supabase.co https://*.auth0.com https://*.netlify.app; font-src 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; base-uri 'self';"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Add CORS headers for Netlify Functions
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
