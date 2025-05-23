@@ -7,11 +7,7 @@
   to = "/index.html"
   status = 200
 
-# Redirect for Netlify Functions
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+# Note: Netlify Functions redirects are handled automatically by Netlify
 
 [build.environment]
   NODE_ENV = "production"
@@ -27,29 +23,6 @@
   # Disable secrets scanning
   SECRETS_SCAN_ENABLED = "false"
 
-# Use our custom plugins
-[[plugins]]
-  package = "/netlify/plugins/inject-env-vars"
+# We'll use Netlify's built-in functionality instead of custom plugins
 
-[[plugins]]
-  package = "/netlify/headers/security-headers"
-
-# Add security headers
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.auth0.com https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.supabase.co https://via.placeholder.com; connect-src 'self' https://*.supabase.co https://*.auth0.com https://*.netlify.app; font-src 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; base-uri 'self';"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-
-# Add CORS headers for Netlify Functions
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Content-Type, Authorization"
-    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+# Security headers are now defined in the _headers file
