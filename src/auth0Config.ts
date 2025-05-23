@@ -4,7 +4,7 @@ import { Auth0ClientOptions } from '@auth0/auth0-react';
 // Auth0 configuration options
 export const auth0Config: Auth0ClientOptions = {
   domain: 'dev-mytcazei5krtbkqw.us.auth0.com',
-  clientId: import.meta.env.VITE_AUTH0_CLIENT_ID || 'Mp0HS9ZAmmgPVbpDU3lCbe8vr4cQgT6L',
+  clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
   authorizationParams: {
     redirect_uri: window.location.origin,
     audience: import.meta.env.VITE_AUTH0_AUDIENCE,

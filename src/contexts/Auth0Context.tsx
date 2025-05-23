@@ -2,7 +2,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Auth0Provider, Auth0ProviderOptions, useAuth0 } from '@auth0/auth0-react';
-import { supabaseClient } from '../supabaseConfig';
+import { supabaseClient } from '../../js/supabase-client.js';
 
 // User roles
 export const USER_ROLE = 'user';
@@ -153,16 +153,17 @@ export function Auth0ContextProvider({ children }: { children: ReactNode }) {
               .eq('id', existingUser.id);
           } else {
             // User doesn't exist, create new profile
-            // Default to regular user role
-            const role = user.email === 'chasinalts@gmail.com' ? OWNER_ROLE : USER_ROLE;
-            const isOwner = role === OWNER_ROLE;
+            // Default to regular user role. Actual roles should come from Auth0 metadata.
+            // For this immediate fix, we'll default to USER_ROLE for new users to remove the hardcoded email.
+            const role = USER_ROLE; // Default role for new users
+            const isOwner = false; // Default is_owner for new users
 
             userProfile = {
               id: user.sub || '',
               email: user.email || '',
               username: user.name || user.nickname || user.email?.split('@')[0] || '',
-              is_owner: isOwner,
-              role: role,
+              is_owner: isOwner, // Ensure this doesn't default to true
+              role: role,       // Ensure this is the default role
               created_at: new Date().toISOString(),
               last_sign_in_at: new Date().toISOString(),
               permissions: DEFAULT_PERMISSIONS[role],
@@ -258,8 +259,8 @@ export function Auth0ContextProvider({ children }: { children: ReactNode }) {
     syncUserWithSupabase,
   };
 
-  // Expose the context to the window object for use in non-React components
-  if (typeof window !== 'undefined') {
+  // Expose the context to the window object for use in non-React components, only in development
+  if (typeof window !== 'undefined' && import.meta.env.DEV) {
     window.__AUTH0_CONTEXT__ = value;
   }
 

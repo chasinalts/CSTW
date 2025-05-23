@@ -62,7 +62,7 @@ const Signup = () => {
             text="Create your account"
             as="h2"
             variant="title"
-            className="text-center font-extrabold"
+            className="text-center font-extrabold holographic-text-glitch"
           />
           <div className="mt-2">
             <HolographicText
@@ -76,7 +76,7 @@ const Signup = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10 futuristic-container holo-glow">
+        <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10 futuristic-container holo-glow has-scanline">
           <div className="space-y-6">
             <div className="text-center mb-6">
               <p className="text-sm text-gray-400 mb-4">
@@ -96,7 +96,7 @@ const Signup = () => {
                 type="button"
                 onClick={handleSignup}
                 disabled={redirecting}
-                className="mt-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white futuristic-button"
+                className="mt-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium btn-accent"
               >
                 Sign Up with Auth0
               </button>

@@ -142,22 +142,22 @@ const Home: React.FC = () => {
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-cyan-900 to-blue-700 flex flex-col items-center py-8 px-2">
+    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-cyan-900 to-blue-700 flex flex-col items-center py-8 px-2 futuristic-grid-bg">
       {/* Site Title */}
       <HolographicText
         text="COMET SCANNER TEMPLATE WIZARD"
         as="h1"
         variant="title"
-        className="text-4xl md:text-5xl font-extrabold text-white mb-4 text-center drop-shadow-lg"
+        className="text-4xl md:text-5xl font-extrabold text-white mb-8 text-center drop-shadow-lg holographic-text-glitch"
       />
 
       {/* User Profile Section */}
-      <div className="w-full max-w-5xl mb-6">
+      <div className="w-full max-w-5xl mb-12">
         <UserProfile className="mb-4" />
       </div>
 
       {/* Banner Section */}
-      <div className="w-full max-w-5xl mb-10 flex flex-col items-center">
+      <div className="w-full max-w-5xl mb-12 futuristic-container has-scanline p-4">
         {bannerUrl ? (
           <LazyImage
             src={bannerUrl}
@@ -176,7 +176,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Image Gallery Section */}
-      <section className="w-full max-w-6xl mb-12">
+      <section className="w-full max-w-6xl mb-16 futuristic-container has-scanline p-6">
         <HolographicText
           text="COMET Scanner Gallery"
           as="h2"
@@ -230,15 +230,14 @@ const Home: React.FC = () => {
       <div className="w-full max-w-4xl flex justify-center mb-16">
         <Button
           onClick={() => navigate('/scanner')}
-          className="px-8 py-6 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/20"
-          variant="primary"
+          className="px-8 py-6 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/20 btn-accent"
         >
           Start the COMET Scanner Template Wizard
         </Button>
       </div>
 
       {/* COMET Description Section */}
-      <section className="w-full max-w-4xl mb-8 bg-white/10 backdrop-blur-sm rounded-lg p-8 shadow-lg">
+      <section className="w-full max-w-4xl mb-8 bg-white/10 backdrop-blur-sm rounded-lg p-8 shadow-lg has-scanline">
         <HolographicText
           text="What is COMET?"
           as="h2"

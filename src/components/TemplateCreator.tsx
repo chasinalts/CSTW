@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from '../utils/react-imports';
-import { useAuth } from '../contexts/AuthContext';
-import { supabaseClient } from '../supabaseConfig';
+import { useAuth0Context } from '../contexts/Auth0Context';
+import { supabaseClient } from '../../js/supabase-client.js';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Template {
@@ -17,7 +17,7 @@ const TemplateCreator: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { currentUser } = useAuth();
+  const { currentUser } = useAuth0Context();
 
   const handleSaveTemplate = async () => {
     if (!template_name.trim()) {
