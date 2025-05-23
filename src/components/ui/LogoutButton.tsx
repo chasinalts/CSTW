@@ -1,5 +1,5 @@
 // Logout button component that handles user logout
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth0Context } from '../../contexts/Auth0Context';
 
 interface LogoutButtonProps {
   className?: string;
@@ -12,7 +12,7 @@ const LogoutButton = ({
   variant = 'primary',
   size = 'md'
 }: LogoutButtonProps) => {
-  const { logout } = useAuth();
+  const { logout } = useAuth0Context();
 
   const handleLogout = () => {
     logout();

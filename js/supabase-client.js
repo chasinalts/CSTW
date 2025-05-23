@@ -1,18 +1,22 @@
 // Supabase Configuration
-const SUPABASE_URL = 'https://vsnxoewidgsnkdffotco.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzbnhvZXdpZGdzbmtkZmZvdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4MTQyMTUsImV4cCI6MjA2MzM5MDIxNX0.iHIW5ANa4MHBtAJoeSVOKdywNgR4Q84tnf7DJ2iFCDY';
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 let supabase = null;
 
-try {
-    if (window.supabase && typeof window.supabase.createClient === 'function') {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log('Supabase client initialized.');
-    } else {
-        console.error('Supabase SDK not loaded or createClient is not a function.');
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    console.error('Supabase URL or Anon Key is missing. Make sure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your environment.');
+} else {
+    try {
+        if (window.supabase && typeof window.supabase.createClient === 'function') {
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('Supabase client initialized.');
+        } else {
+            console.error('Supabase SDK not loaded or createClient is not a function.');
+        }
+    } catch (error) {
+        console.error('Error initializing Supabase client:', error);
     }
-} catch (error) {
-    console.error('Error initializing Supabase client:', error);
 }
 
 // Expose the Supabase client to the global scope if needed, or export it if using modules
@@ -167,3 +171,5 @@ window.db = {
     saveUserTemplate,
     deleteUserTemplate
 };
+
+export const supabaseClient = supabase; // Add this line

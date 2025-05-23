@@ -8,8 +8,6 @@ import ErrorBoundary from './components/ErrorBoundary';
 import analytics from './utils/analytics';
 import loggingService from './utils/loggingService';
 
-// Simple authentication is now handled by AuthContext
-
 // Make sure the root element exists
 const rootElement = document.getElementById('root');
 if (!rootElement) {

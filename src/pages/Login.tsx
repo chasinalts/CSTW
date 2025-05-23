@@ -53,7 +53,7 @@ const Login = () => {
             text="COMET Scanner Wizard"
             as="h2"
             variant="title"
-            className="text-center font-extrabold"
+            className="text-center font-extrabold holographic-text-glitch"
           />
           <div className="mt-2">
             <HolographicText
@@ -67,7 +67,7 @@ const Login = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10 futuristic-container holo-glow">
+        <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10 futuristic-container holo-glow has-scanline">
           <div className="space-y-6">
             <div className="text-center mb-6">
               <p className="text-sm text-gray-400 mb-4">
@@ -80,7 +80,7 @@ const Login = () => {
                 type="button"
                 onClick={handleLogin}
                 disabled={isLoading}
-                className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white futuristic-button"
+                className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium btn-accent"
               >
                 {isLoading ? 'Signing in...' : 'Sign In with Auth0'}
               </button>

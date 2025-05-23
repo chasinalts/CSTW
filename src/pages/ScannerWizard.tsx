@@ -19,6 +19,7 @@ import { TextField, CheckboxField } from '../components/ui/FormField';
 import HolographicText from '../components/ui/HolographicText';
 import Button from '../components/ui/Button';
 import InitialUserChoice from '../components/InitialUserChoice';
+import AssetStringGeneratorModal from '../components/tools/AssetStringGeneratorModal'; // Import the new modal
 
 const containerVariants = {
   initial: { opacity: 0, y: 20 },
@@ -46,6 +47,7 @@ const ScannerWizard = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedTitle, setSelectedTitle] = useState<string>('');
   const [showFloatingPreview, setShowFloatingPreview] = useState(true);
+  const [showAssetStringModal, setShowAssetStringModal] = useState(false); // State for the new modal
 
   // Wizard flow state
   const [wizardMode, setWizardMode] = useState<'initial' | 'fullTemplate' | 'wizard'>('initial');
@@ -365,14 +367,14 @@ const ScannerWizard = () => {
               text="COMET Scanner Template Wizard"
               as="h1"
               variant="title"
-              className="text-5xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight"
+              className="text-5xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight holographic-text-glitch"
             />
           </motion.div>
 
           {/* Banner Section */}
           <motion.div
             variants={itemVariants}
-            className="relative w-full mb-12 bg-gray-100 dark:bg-gray-800 holo-glow"
+            className="relative w-full mb-16 bg-gray-100 dark:bg-gray-800 holo-glow has-scanline"
           >
             {bannerContent ? (
               <div className="relative w-full flex items-center justify-center overflow-hidden">
@@ -432,6 +434,17 @@ const ScannerWizard = () => {
 
           {/* Main Content Area */}
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            {/* Asset String Generator Tool Button */}
+            <div className="mb-8 text-center">
+              <Button 
+                onClick={() => setShowAssetStringModal(true)}
+                variant="outline" // Using outline for less prominence than btn-accent
+                className="border-cyan-400 text-cyan-300 hover:bg-cyan-700/30"
+              >
+                TickerID/NameID Tool
+              </Button>
+            </div>
+            
             {/* Initial Choice */}
             {wizardMode === 'initial' && (
               <InitialUserChoice
@@ -465,7 +478,7 @@ const ScannerWizard = () => {
                     placeholder="Enter a name for this template"
                     className="w-full md:w-64"
                   />
-                  <Button onClick={saveTemplate}>Save Template</Button>
+                  <Button onClick={saveTemplate} className="btn-accent">Save Template</Button>
                 </div>
               </div>
             )}
@@ -486,7 +499,7 @@ const ScannerWizard = () => {
                     {wizardState.questions.length > 0 ? (
                       <div className="space-y-6">
                         {/* Current Question */}
-                        <div className="p-6 rounded-lg shadow border border-gray-200 dark:border-gray-700 futuristic-container">
+                        <div className="p-6 rounded-lg shadow border border-gray-200 dark:border-gray-700 futuristic-container has-scanline mb-8">
                           {renderQuestionInput(wizardState.questions[currentQuestionIndex])}
                         </div>
 
@@ -510,6 +523,7 @@ const ScannerWizard = () => {
                           <Button
                             onClick={goToNextQuestion}
                             disabled={currentQuestionIndex === wizardState.questions.length - 1}
+                            className="btn-accent"
                           >
                             Next
                           </Button>
@@ -536,7 +550,7 @@ const ScannerWizard = () => {
                             placeholder="Enter a name for this template"
                             className="w-full md:w-64"
                           />
-                          <Button onClick={saveTemplate}>Save Progress</Button>
+                          <Button onClick={saveTemplate} className="btn-accent">Save Progress</Button>
                         </div>
                       </div>
                     ) : (
@@ -620,7 +634,7 @@ const ScannerWizard = () => {
                         </span>
                         <button
                           onClick={() => loadTemplate(template.id)}
-                          className="text-xs px-2 py-1 bg-cyan-100 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-200 rounded hover:bg-cyan-200 dark:hover:bg-cyan-800"
+                          className="text-xs px-2 py-1 bg-cyan-100 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-200 rounded hover:bg-cyan-200 dark:hover:bg-cyan-800 btn-accent"
                         >
                           Load Template
                         </button>
@@ -774,6 +788,12 @@ const ScannerWizard = () => {
             />
           </LiveFloatingPreview>
         )}
+
+        {/* Asset String Generator Modal */}
+        <AssetStringGeneratorModal 
+          isOpen={showAssetStringModal} 
+          onClose={() => setShowAssetStringModal(false)} 
+        />
 
         {/* Lightbox Modal */}
         {selectedImage && (

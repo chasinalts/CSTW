@@ -418,7 +418,7 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
         text="Admin Dashboard"
         as="h1"
         variant="title"
-        className="text-3xl font-bold mb-8"
+        className="text-3xl font-bold mb-8 holographic-text-glitch"
       />
 
       {/* Image Management Section */}
@@ -427,11 +427,11 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
           text="Image Management"
           as="h2"
           variant="subtitle"
-          className="text-2xl font-semibold"
+          className="text-2xl font-semibold mb-6"
         />
 
         {/* Banner Image */}
-        <div className="rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 futuristic-container holo-glow">
+        <div className="rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 futuristic-container holo-glow has-scanline">
           <HolographicText
             text="Banner Image"
             as="h3"
@@ -537,7 +537,7 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
         </div>
 
         {/* Scanner Variations */}
-        <div className="rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 futuristic-container holo-glow">
+        <div className="rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 futuristic-container holo-glow has-scanline">
           <div className="flex justify-between items-center mb-4">
             <HolographicText
               text="Scanner Variations"
@@ -666,9 +666,9 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
           text="Full Template Code"
           as="h2"
           variant="subtitle"
-          className="text-2xl font-semibold"
+          className="text-2xl font-semibold mb-6"
         />
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div className="futuristic-container has-scanline p-6">
           <div className="flex items-center justify-between mb-4">
             <HolographicText
               text="Complete Pre-defined Template"
@@ -707,17 +707,17 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
           text="Template Builder"
           as="h2"
           variant="subtitle"
-          className="text-2xl font-semibold"
+          className="text-2xl font-semibold mb-6"
         />
         <TemplateCreator />
         <div className="space-y-6">
-          <Button onClick={addSection}>Add New Section</Button>
+          <Button onClick={addSection} className="btn-accent">Add New Section</Button>
           <Reorder.Group axis="y" values={sections} onReorder={reorderSections} className="space-y-4">
             {sections.map((section: Section) => (
               <Reorder.Item
                 key={section.id}
                 value={section}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 border border-gray-200 dark:border-gray-700"
+                className="futuristic-container has-scanline p-4"
               >
                 <div className="flex items-center justify-between mb-3">
                   <TextField
@@ -761,9 +761,11 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
             text="User Management"
             as="h2"
             variant="subtitle"
-            className="text-2xl font-semibold"
+          className="text-2xl font-semibold mb-6"
           />
+        <div className="futuristic-container has-scanline p-6">
           <UserManagement />
+        </div>
         </section>
       )}
 
@@ -773,9 +775,9 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
           text="COMET Description"
           as="h2"
           variant="subtitle"
-          className="text-2xl font-semibold"
+          className="text-2xl font-semibold mb-6"
         />
-        <div className="rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 futuristic-container holo-glow">
+        <div className="rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 futuristic-container holo-glow has-scanline">
           <div className="space-y-6">
             <div>
               <HolographicText
@@ -810,7 +812,7 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
             </div>
 
             <div className="flex justify-end">
-              <Button onClick={handleSaveCometDescription}>
+              <Button onClick={handleSaveCometDescription} className="btn-accent">
                 Save COMET Description
               </Button>
             </div>
@@ -824,9 +826,11 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
           text="System Logs"
           as="h2"
           variant="subtitle"
-          className="text-2xl font-semibold"
+          className="text-2xl font-semibold mb-6"
         />
-        <LogViewer />
+        <div className="futuristic-container has-scanline p-6">
+          <LogViewer />
+        </div>
       </section>
 
       {/* Context7 Documentation Section */}
@@ -835,19 +839,21 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
           text="API Documentation"
           as="h2"
           variant="subtitle"
-          className="text-2xl font-semibold"
+          className="text-2xl font-semibold mb-6"
         />
-        <Context7Documentation />
+        <div className="futuristic-container has-scanline p-6">
+          <Context7Documentation />
+        </div>
       </section>
 
       {/* Questions Section */}
       <section className="space-y-8">
-        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Questions</h2>
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Questions</h2>
         <div className="space-y-6">
           <div className="flex space-x-4">
-            <Button onClick={() => addQuestion('text')}>Add Text Question</Button>
-            <Button onClick={() => addQuestion('choice')}>Add Choice Question</Button>
-            <Button onClick={() => addQuestion('boolean')}>Add Yes/No Question</Button>
+            <Button onClick={() => addQuestion('text')} className="btn-accent">Add Text Question</Button>
+            <Button onClick={() => addQuestion('choice')} className="btn-accent">Add Choice Question</Button>
+            <Button onClick={() => addQuestion('boolean')} className="btn-accent">Add Yes/No Question</Button>
           </div>
 
           <AnimatePresence mode="popLayout">
@@ -859,7 +865,7 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700"
+                  className="futuristic-container has-scanline p-6"
                 >
                   <div className="flex justify-between items-start mb-6">
                     <TextArea
@@ -918,7 +924,7 @@ The COMET Scanner Template Wizard helps you create a customized scanner template
                     <div className="space-y-6">
                       <div className="flex items-center justify-between">
                         <h3 className="text-lg font-medium text-gray-900 dark:text-white">Answer Options</h3>
-                        <Button onClick={() => handleAddOption(question.id)}>Add Option</Button>
+                        <Button onClick={() => handleAddOption(question.id)} className="btn-accent">Add Option</Button>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

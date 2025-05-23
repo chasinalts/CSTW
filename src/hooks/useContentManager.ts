@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from '../utils/react-imports';
 import type { ContentItem } from './useAdminContent';
 import { handleImageUpload, cleanupImageUrl } from '../utils/imageHandlers';
 import { BucketType as SupabaseBucketType } from '../utils/supabaseStorage';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth0Context } from '../contexts/Auth0Context';
 
 export interface ContentManagerHook {
   contents: ContentItem[];
@@ -19,7 +19,7 @@ export interface ContentManagerHook {
 }
 
 export const useContentManager = (): ContentManagerHook => {
-  const { currentUser } = useAuth();
+  const { currentUser } = useAuth0Context();
   const [contents, setContents] = useState<ContentItem[]>(() => {
     const savedContents = localStorage.getItem('admin_contents');
     return savedContents ? JSON.parse(savedContents) : [];
