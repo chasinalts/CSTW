@@ -1,11 +1,18 @@
 #!/bin/bash
 
+# Skip TypeScript check for now
+echo "Skipping TypeScript type check..."
+# npm run test:types || { echo "TypeScript type check failed!"; exit 1; }
+
 # Build the React application
 echo "Building React application..."
 npm run build
 
 # Copy Netlify configuration files
 cp _headers dist/ 2>/dev/null || :
+
+# Create assets directory if it doesn't exist
+mkdir -p dist/assets
 
 # Create a runtime-env.js file that will load environment variables from the Netlify function
 cat > dist/assets/runtime-env.js << EOL

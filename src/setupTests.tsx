@@ -1,5 +1,6 @@
 // Setup file for Vitest tests
-import { vi, beforeAll, afterEach, afterAll } from 'vitest';
+import { vi, beforeAll, afterEach, afterAll, expect } from 'vitest';
+import '@testing-library/jest-dom';
 import { server } from './mocks/server';
 import '@testing-library/jest-dom';
 import { setupSupabaseMock } from './__tests__/mocks/supabaseMock';

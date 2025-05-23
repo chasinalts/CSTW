@@ -120,12 +120,14 @@ const mockUserProfiles = [
 // Define handlers
 export const handlers = [
   // Appwrite API handlers
+  http.get('/v1/databases/:databaseId/collections/:collectionId/documents', () => {
     return HttpResponse.json({
       documents: [],
       total: 0
     });
   }),
 
+  http.get('/v1/storage/:bucketId/files', () => {
     return HttpResponse.json({
       files: [],
       total: 0

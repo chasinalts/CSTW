@@ -15,14 +15,14 @@ jsFiles.forEach(file => {
       path.join('js', file),
       path.join('public/js', file)
     );
-    console.log(`Copied js/${file} to public/js/${file}`);
+    console.log('Copied js/' + file + ' to public/js/' + file);
   }
 });
 
 // Copy CSS files if needed
 if (fs.existsSync('css') && !fs.existsSync('public/css')) {
   fs.mkdirSync('public/css', { recursive: true });
-  
+
   const cssFiles = fs.readdirSync('css');
   cssFiles.forEach(file => {
     if (file.endsWith('.css')) {
@@ -30,7 +30,7 @@ if (fs.existsSync('css') && !fs.existsSync('public/css')) {
         path.join('css', file),
         path.join('public/css', file)
       );
-      console.log(`Copied css/${file} to public/css/${file}`);
+      console.log('Copied css/' + file + ' to public/css/' + file);
     }
   });
 }
