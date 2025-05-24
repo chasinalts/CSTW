@@ -1,109 +1,107 @@
-// Wizard context that manages the state of the COMET Scanner Template Wizard, including user answers and progress
-import { createContext, useContext, useReducer, ReactNode } from 'react';
-import type { Question } from '../types/questions';
-import type { Section } from '../hooks/useSections';
+import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
-// Define the structure for storing answers
-export type AnswerValue = string | string[] | boolean | undefined;
-export type Answers = Record<string, AnswerValue>; // Question ID -> Answer Value
-
-interface WizardState {
-  currentStep: number; // Although we removed steps, keep for potential future use or structure
-  progress: {
-    step1Complete: boolean; // Keep for consistency, might represent overall completion
-  };
-  answers: Answers; // Store user answers here
-  // We might not need sections/questions here if managed elsewhere, but keep if needed for context
-  sections: Section[];
-  questions: Question[];
+// Define the shape of a question
+export interface WizardQuestion {
+  id: string;
+  text: string;
+  type: 'string' | 'boolean' | 'multiple-choice';
+  details: any; // Can be more specific based on question type
+  // Example for string:
+  // details: { placeholder?: string; }
+  // Example for boolean:
+  // details: { trueText?: string; falseText?: string; trueCode?: string; falseCode?: string; trueImage?: string; falseImage?: string; }
+  // Example for multiple-choice:
+  // details: { options: Array<{ text: string; code: string; image?: string; }> }
 }
 
-type WizardAction =
-  | { type: 'SET_STEP'; payload: number }
-  | { type: 'SET_PROGRESS'; payload: Partial<WizardState['progress']> }
-  | { type: 'SET_ANSWER'; payload: { questionId: string; value: AnswerValue } }
-  | { type: 'SET_ANSWERS'; payload: Answers } // Action to set all answers at once
-  | { type: 'CLEAR_ANSWERS' } // Action to clear all answers
-  | { type: 'SET_SECTIONS'; payload: Section[] } // Action to update sections
-  | { type: 'SET_QUESTIONS'; payload: Question[] }; // Action to update questions
-
-const initialState: WizardState = {
-  currentStep: 1,
-  progress: {
-    step1Complete: false
-  },
-  answers: {},
-  sections: [], // Initialize sections
-  questions: [] // Initialize questions
-};
-
-const WizardContext = createContext<{
-  state: WizardState;
-  dispatch: React.Dispatch<WizardAction>;
-} | undefined>(undefined);
-
-function wizardReducer(state: WizardState, action: WizardAction): WizardState {
-  switch (action.type) {
-    case 'SET_STEP':
-      return {
-        ...state,
-        currentStep: action.payload
-      };
-    case 'SET_PROGRESS':
-      return {
-        ...state,
-        progress: {
-          ...state.progress,
-          ...action.payload
-        }
-      };
-    case 'SET_ANSWER':
-      return {
-        ...state,
-        answers: {
-          ...state.answers,
-          [action.payload.questionId]: action.payload.value
-        }
-      };
-    case 'SET_ANSWERS':
-      return {
-        ...state,
-        answers: action.payload
-      };
-    case 'CLEAR_ANSWERS':
-      return {
-        ...state,
-        answers: {}
-      };
-    case 'SET_SECTIONS':
-      return { ...state, sections: action.payload };
-    case 'SET_QUESTIONS':
-      return { ...state, questions: action.payload };
-    default:
-      return state;
-  }
+// Define the shape of a user answer
+export interface UserAnswer {
+  value?: any;
+  skipped?: boolean;
+  type: WizardQuestion['type'];
+  placeholder?: string; // For string type
+  code?: string; // For boolean/multiple-choice type
 }
 
-export function WizardProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(wizardReducer, initialState);
+export interface UserAnswers {
+  [questionId: string]: UserAnswer;
+}
 
-  // Potentially load sections/questions from hooks here if they are managed globally
-  // const { sections } = useSections(); // Example
-  // const { questions } = useQuestions(); // Example
-  // useEffect(() => { dispatch({ type: 'SET_SECTIONS', payload: sections }); }, [sections]);
-  // useEffect(() => { dispatch({ type: 'SET_QUESTIONS', payload: questions }); }, [questions]);
+export interface SavedTemplate {
+  id: string;
+  name: string;
+  code: string;
+  timestamp: number;
+}
+
+// Define the shape of the context state
+interface WizardContextState {
+  allQuestions: WizardQuestion[];
+  setAllQuestions: Dispatch<SetStateAction<WizardQuestion[]>>;
+  userAnswers: UserAnswers;
+  setUserAnswers: Dispatch<SetStateAction<UserAnswers>>;
+  currentQuestionIndex: number;
+  setCurrentQuestionIndex: Dispatch<SetStateAction<number>>;
+  baseCode: string;
+  setBaseCode: Dispatch<SetStateAction<string>>;
+  fullCode: string;
+  setFullCode: Dispatch<SetStateAction<string>>;
+  savedTemplates: SavedTemplate[];
+  setSavedTemplates: Dispatch<SetStateAction<SavedTemplate[]>>;
+  isWizardActive: boolean;
+  setIsWizardActive: Dispatch<SetStateAction<boolean>>; // To control visibility of wizard vs. choice
+  generatedCode: string; // Stores the dynamically generated code
+  setGeneratedCode: Dispatch<SetStateAction<string>>;
+}
+
+// Create the context with a default undefined value
+const WizardContext = createContext<WizardContextState | undefined>(undefined);
+
+// Create a provider component
+interface WizardProviderProps {
+  children: ReactNode;
+}
+
+export const WizardProvider: React.FC<WizardProviderProps> = ({ children }) => {
+  const [allQuestions, setAllQuestions] = useState<WizardQuestion[]>([]);
+  const [userAnswers, setUserAnswers] = useState<UserAnswers>({});
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+  const [baseCode, setBaseCode] = useState<string>('');
+  const [fullCode, setFullCode] = useState<string>('');
+  const [savedTemplates, setSavedTemplates] = useState<SavedTemplate[]>([]);
+  const [isWizardActive, setIsWizardActive] = useState<boolean>(false);
+  const [generatedCode, setGeneratedCode] = useState<string>('');
+
+  // Load initial data from localStorage (example)
+  // useEffect(() => {
+  //   const storedQuestions = localStorage.getItem('wizardQuestions');
+  //   if (storedQuestions) setAllQuestions(JSON.parse(storedQuestions));
+  //   const storedBaseCode = localStorage.getItem('baseTemplateCode');
+  //   if (storedBaseCode) setBaseCode(storedBaseCode);
+  //   // ... load other items
+  // }, []);
 
   return (
-    <WizardContext.Provider value={{ state, dispatch }}>
+    <WizardContext.Provider value={{
+      allQuestions, setAllQuestions,
+      userAnswers, setUserAnswers,
+      currentQuestionIndex, setCurrentQuestionIndex,
+      baseCode, setBaseCode,
+      fullCode, setFullCode,
+      savedTemplates, setSavedTemplates,
+      isWizardActive, setIsWizardActive,
+      generatedCode, setGeneratedCode
+    }}>
       {children}
     </WizardContext.Provider>
   );
-}
+};
 
-export function useWizard() {
+// Create a custom hook to use the WizardContext
+export const useWizard = (): WizardContextState => {
   const context = useContext(WizardContext);
   if (context === undefined) {
     throw new Error('useWizard must be used within a WizardProvider');
   }
   return context;
-}
+};

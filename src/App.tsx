@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { SupabaseProvider } from './contexts/SupabaseContext';
 import { QuestionProvider } from './contexts/QuestionContext';
+import { WizardProvider } from './contexts/WizardContext';
 import PrivateRoute from './components/auth/PrivateRoute';
 import HomePage from './pages/HomePage';
-import WizardPage from './pages/WizardPage';
+// import WizardPage from './pages/WizardPage'; // Original direct import removed
 import AdminDashboardNew from './pages/AdminDashboardNew';
 import NotFoundPage from './pages/NotFoundPage';
 import ScannerListPage from './pages/ScannerListPage';
+
+const WizardPage = lazy(() => import('./pages/WizardPage')); // Added lazy loaded WizardPage
 
 const auth0Config = {
   domain: import.meta.env.VITE_AUTH0_DOMAIN || '',
@@ -33,8 +36,12 @@ const App: React.FC = () => {
               <Route
                 path="/wizard"
                 element={
-                  <PrivateRoute>
-                    <WizardPage />
+                  <PrivateRoute> {/* Assuming ProtectedRoute was a typo in the failed block and PrivateRoute is intended from original content. If ProtectedRoute is truly desired, change PrivateRoute to ProtectedRoute here. */}
+                    <WizardProvider>
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <WizardPage />
+                      </Suspense>
+                    </WizardProvider>
                   </PrivateRoute>
                 }
               />
