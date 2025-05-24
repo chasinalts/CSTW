@@ -1,134 +1,70 @@
-import { forwardRef, ReactNode } from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
-import LoadingSpinner from './LoadingSpinner';
+import React from 'react';
 
-interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'color'> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'danger';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
-  loadingText?: string;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
-  fullWidth?: boolean;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
-      variant = 'primary',
-      size = 'md',
-      isLoading = false,
-      loadingText,
-      leftIcon,
-      rightIcon,
-      fullWidth = false,
-      disabled,
-      className = '',
-      ...props
-    },
-    ref
-  ) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors';
-
-    const variants = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-      secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500',
-      danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
-      ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-500'
-    };
-
-    const sizes = {
-      sm: 'px-3 py-1.5 text-sm',
-      md: 'px-4 py-2 text-base',
-      lg: 'px-6 py-3 text-lg'
-    };
-
-    const disabledStyles = 'opacity-60 cursor-not-allowed pointer-events-none';
-
-    return (
-      <motion.button
-        ref={ref}
-        whileTap={{ scale: 0.98 }}
-        disabled={disabled || isLoading}
-        className={`
-          ${baseStyles}
-          ${variants[variant]}
-          ${sizes[size]}
-          ${fullWidth ? 'w-full' : ''}
-          ${disabled || isLoading ? disabledStyles : ''}
-          ${className}
-        `}
-        {...props}
-      >
-        {isLoading ? (
-          <>
-            <LoadingSpinner
-              size="sm"
-              color={variant === 'secondary' || variant === 'ghost' ? 'gray' : 'white'}
-            />
-            {loadingText && <span className="ml-2">{loadingText}</span>}
-          </>
-        ) : (
-          <>
-            {leftIcon && <span className="mr-2">{leftIcon}</span>}
-            {children}
-            {rightIcon && <span className="ml-2">{rightIcon}</span>}
-          </>
-        )}
-      </motion.button>
-    );
-  }
-);
-
-Button.displayName = 'Button';
-
-// Icon-only button variant
-export const IconButton = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, size = 'md', ...props }, ref) => {
-    const sizes = {
-      sm: 'p-1.5',
-      md: 'p-2',
-      lg: 'p-3'
-    };
-
-    return (
-      <Button
-        ref={ref}
-        size={size}
-        className={sizes[size]}
-        {...props}
-      >
-        {children}
-      </Button>
-    );
-  }
-);
-
-IconButton.displayName = 'IconButton';
-
-// Button group for connected buttons
-interface ButtonGroupProps {
-  children: ReactNode;
-  attached?: boolean;
-  vertical?: boolean;
-}
-
-export const ButtonGroup = ({
+const Button: React.FC<ButtonProps> = ({
   children,
-  attached = false,
-  vertical = false,
-}: ButtonGroupProps) => {
+  variant = 'primary',
+  size = 'md',
+  isLoading = false,
+  className = '',
+  disabled,
+  ...props
+}) => {
+  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors';
+  
+  const variantClasses = {
+    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+    secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-500',
+    danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500'
+  }[variant];
+
+  const sizeClasses = {
+    sm: 'px-3 py-1.5 text-sm',
+    md: 'px-4 py-2 text-base',
+    lg: 'px-6 py-3 text-lg'
+  }[size];
+
+  const disabledClasses = (disabled || isLoading) ? 'opacity-50 cursor-not-allowed' : '';
+
   return (
-    <div
-      className={`
-        inline-flex
-        ${vertical ? 'flex-col' : ''}
-        ${attached ? vertical ? '-space-y-px' : '-space-x-px' : vertical ? 'space-y-2' : 'space-x-2'}
-      `}
+    <button
+      className={`${baseClasses} ${variantClasses} ${sizeClasses} ${disabledClasses} ${className}`}
+      disabled={disabled || isLoading}
+      {...props}
     >
-      {children}
-    </div>
+      {isLoading ? (
+        <>
+          <svg
+            className="animate-spin -ml-1 mr-2 h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+          Loading...
+        </>
+      ) : (
+        children
+      )}
+    </button>
   );
 };
 
