@@ -51,7 +51,7 @@ const CookieWarning: React.FC<CookieWarningProps> = ({ className = '' }) => {
         <div className="ml-3">
           <p className="text-sm text-amber-800">
             <strong>Browser Cookie Restrictions:</strong> Your browser may be restricting third-party cookies, which could affect login functionality. 
-            We use localStorage as a fallback, but you may need to allow cookies from cloud.appwrite.io for the best experience.
+            We use localStorage as a fallback.
           </p>
         </div>
       </div>

@@ -92,19 +92,7 @@ describe('LazyImage Component', () => {
     });
   });
 
-  it('fetches preview URL for Appwrite file IDs', async () => {
-    render(
-      <LazyImage
-        src="banner_123456"
-        alt="Appwrite image"
-      />
-    );
 
-    // Wait for the preview URL to be fetched
-    await waitFor(() => {
-      expect(getFilePreview).toHaveBeenCalledWith('banner_123456', expect.any(String));
-    });
-  });
 
   it('applies correct aspect ratio', async () => {
     render(

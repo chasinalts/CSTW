@@ -19,7 +19,7 @@ import { TextField, CheckboxField } from '../components/ui/FormField';
 import HolographicText from '../components/ui/HolographicText';
 import Button from '../components/ui/Button';
 import InitialUserChoice from '../components/InitialUserChoice';
-import AssetStringGeneratorModal from '../components/tools/AssetStringGeneratorModal'; // Import the new modal
+import AssetStringGeneratorModal from '../components/modals/AssetStringGeneratorModal'; // Import the new modal
 
 const containerVariants = {
   initial: { opacity: 0, y: 20 },
@@ -436,7 +436,7 @@ const ScannerWizard = () => {
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             {/* Asset String Generator Tool Button */}
             <div className="mb-8 text-center">
-              <Button 
+              <Button
                 onClick={() => setShowAssetStringModal(true)}
                 variant="outline" // Using outline for less prominence than btn-accent
                 className="border-cyan-400 text-cyan-300 hover:bg-cyan-700/30"
@@ -444,7 +444,7 @@ const ScannerWizard = () => {
                 TickerID/NameID Tool
               </Button>
             </div>
-            
+
             {/* Initial Choice */}
             {wizardMode === 'initial' && (
               <InitialUserChoice
@@ -790,9 +790,9 @@ const ScannerWizard = () => {
         )}
 
         {/* Asset String Generator Modal */}
-        <AssetStringGeneratorModal 
-          isOpen={showAssetStringModal} 
-          onClose={() => setShowAssetStringModal(false)} 
+        <AssetStringGeneratorModal
+          isOpen={showAssetStringModal}
+          onClose={() => setShowAssetStringModal(false)}
         />
 
         {/* Lightbox Modal */}

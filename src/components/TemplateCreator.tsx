@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from '../utils/react-imports';
 import { useAuth0Context } from '../contexts/Auth0Context';
-import { supabaseClient } from '../../js/supabase-client.js';
+import { supabaseClient, saveUserTemplate, getUserSavedTemplates, deleteUserTemplate } from '../supabaseConfig';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Template {

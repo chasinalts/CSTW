@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COMET Scanner Wizard - Admin Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -13,9 +12,9 @@
         <nav>
             <div class="logo">COMET Scanner Wizard</div>
             <ul>
-                <li><a href="index.html">Home Screen</a></li>
-                <li><a href="wizard.html">Template Wizard</a></li>
-                <li><a href="dashboard.html">Admin Dashboard</a></li>
+                <li><a href="/home">Home Screen</a></li>
+                <li><a href="/scanner">Template Wizard</a></li>
+                <li><a href="/dashboard">Admin Dashboard</a></li>
             </ul>
             <div class="user-info">
                 <span class="user-info-span">Guest</span>
@@ -72,7 +71,7 @@
         <section id="questions-builder">
             <h3>Questions Builder</h3>
             <p>Define the questions for the Template Wizard. Users can opt for a full template or go through these questions.</p>
-            
+
             <h4>Code Snippets Management</h4>
             <div>
                 <label for="full-template-code">1. Full Template Code (if user wants the entire template):</label>
@@ -111,7 +110,7 @@
                         <option value="multiple-choice">Multiple Choice</option>
                     </select>
                 </div>
-                
+
                 <div id="string-options" class="question-type-options">
                     <label for="string-image">Helper Image:</label>
                     <input type="file" id="string-image" accept="image/*">
@@ -158,8 +157,10 @@
         <p>Version 1.0.0</p>
     </footer>
 
+    <script src="js/runtime-env.js"></script>
+    <script src="js/env-config.js" type="module"></script>
     <script src="js/auth.js"></script>
-    <script src="js/supabase-client.js"></script>
+    <script src="js/supabase-client.js" type="module"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>

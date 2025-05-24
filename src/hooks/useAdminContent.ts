@@ -8,8 +8,7 @@ export interface ContentItem {
   type: 'banner' | 'scanner' | 'gallery' | 'template' | 'question';
   title: string;
   content: string;
-  fileId?: string; // Stores Appwrite File ID or Supabase public URL path
-  bucketId?: string; // Stores Appwrite Bucket ID
+  fileId?: string; // Stores Supabase public URL path
   imagePreview?: string; // URL for local preview image during/after upload
   scale?: number;
   displayText?: string;
@@ -22,7 +21,7 @@ export interface ContentItem {
   aspectRatio?: string; // e.g., '16/9', '4/3', '1/1'
   displaySize?: 'small' | 'medium' | 'large' | 'custom';
   // Storage provider information
-  storageProvider?: 'appwrite' | 'supabase';
+  storageProvider?: 'supabase';
 }
 
 export interface ImageContent {
@@ -38,7 +37,7 @@ export interface ImageContent {
   aspectRatio?: string; // e.g., '16/9', '4/3', '1/1'
   displaySize?: 'small' | 'medium' | 'large' | 'custom';
   // Storage provider information
-  storageProvider?: 'appwrite' | 'supabase';
+  storageProvider?: 'supabase';
 }
 
 export interface AdminContentHook {
@@ -99,14 +98,8 @@ export const useAdminContent = (): AdminContentHook => {
     const banner = banners[banners.length - 1];
     return {
       id: banner.id,
-      src: (banner.storageProvider === 'appwrite' && banner.fileId && banner.bucketId)
-        ? (() => {
-            // For backward compatibility with Appwrite URLs
-            console.log(`[useAdminContent] Using legacy URL for ${banner.fileId}`);
-            return banner.fileId;
-          })()
-        : banner.fileId || '', // Use fileId directly (Supabase public URL)
-      preview: banner.imagePreview,
+        src: getPublicUrl(banner.fileId),
+        preview: banner.imagePreview,
       alt: banner.title,
       scale: banner.scale,
       displayText: banner.displayText,
@@ -142,14 +135,8 @@ export const useAdminContent = (): AdminContentHook => {
     memoize((items: ContentItem[]): ImageContent[] =>
       items.map(item => ({
         id: item.id,
-        src: (item.storageProvider === 'appwrite' && item.fileId && item.bucketId)
-          ? (() => {
-              // For backward compatibility with Appwrite URLs
-              console.log(`[useAdminContent] Using legacy URL for ${item.fileId}`);
-              return item.fileId;
-            })()
-          : item.fileId || '', // Use fileId directly (Supabase public URL)
-        preview: item.imagePreview,
+          src: getPublicUrl(item.fileId),
+          preview: item.imagePreview,
         alt: item.title,
         scale: item.scale,
         displayText: item.displayText,

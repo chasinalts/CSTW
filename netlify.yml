@@ -1,0 +1,9 @@
+version: 1
+
+# Disable secrets scanning for specific paths
+build:
+  secrets_scan:
+    enabled: true
+    omit_paths:
+      - dist/js/runtime-env.js
+      - netlify/functions/get-env-vars.js

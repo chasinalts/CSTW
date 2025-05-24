@@ -36,21 +36,7 @@ vi.mock('../utils/supabaseImageStorage', () => ({
   deleteFile: vi.fn().mockResolvedValue(true),
 }));
 
-vi.mock('../utils/appwriteStorage', () => ({
-  uploadFile: vi.fn().mockImplementation((file, bucketType) => {
-    return Promise.resolve({
-      file: {
-        $id: `${bucketType}-${Date.now()}`,
-        name: file.name,
-      },
-      metadata: {
-        $id: `metadata-${Date.now()}`,
-        file_id: `${bucketType}-${Date.now()}`,
-        image_type: bucketType,
-      },
-    });
-  }),
-}));
+
 
 vi.mock('../utils/databaseService', () => ({
   databaseService: {
@@ -91,11 +77,6 @@ describe('Data Flow from Storage to UI', () => {
 
     // Mock the image handlers
     vi.spyOn(imageHandlers, 'handleImageUpload').mockImplementation((file, type, onSuccess) => {
-      onSuccess(`${type}-${Date.now()}`, `https://example.com/${type}/${file.name}`);
-      return Promise.resolve();
-    });
-
-    vi.spyOn(imageHandlers, 'handleAppwriteImageUpload').mockImplementation((file, type, onSuccess) => {
       onSuccess(`${type}-${Date.now()}`, `https://example.com/${type}/${file.name}`);
       return Promise.resolve();
     });
@@ -175,7 +156,6 @@ describe('Data Flow from Storage to UI', () => {
       const onError = vi.fn();
 
       // Mock an upload error
-      vi.spyOn(imageHandlers, 'handleAppwriteImageUpload').mockRejectedValueOnce(new Error('Upload failed'));
       vi.spyOn(imageHandlers, 'handleImageUpload').mockImplementationOnce((file, type, onSuccess, onError) => {
         onError(new Error('Upload failed'));
         return Promise.resolve();

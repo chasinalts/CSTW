@@ -1,12 +1,12 @@
 /// <reference types="vite/client" />
+/// <reference types="vitest" />
 
 interface ImportMetaEnv {
-  // Removed Supabase references
+  readonly VITE_SUPABASE_URL: string;
+  readonly VITE_SUPABASE_ANON_KEY: string;
   readonly VITE_AUTH0_DOMAIN: string;
   readonly VITE_AUTH0_CLIENT_ID: string;
   readonly VITE_AUTH0_AUDIENCE: string;
-  readonly VITE_TURSO_DATABASE_URL: string;
-  readonly VITE_TURSO_AUTH_TOKEN: string;
   readonly VITE_APP_TITLE: string;
   // Add other environment variables as needed
 }

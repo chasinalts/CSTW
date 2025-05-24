@@ -35,14 +35,8 @@ export const useContentManager = (): ContentManagerHook => {
   useEffect(() => {
     return () => {
       contents.forEach((content: ContentItem) => {
-        if (content.fileId && content.storageProvider === 'appwrite') { // Only cleanup if it's an Appwrite fileId
-          // For Appwrite, fileId is not a direct URL, so isFirebaseUrl check is not directly applicable here.
-          // cleanupImageUrl will need to handle Appwrite's fileId and bucketId for deletion.
-          // We'll assume cleanupImageUrl is adapted or will be adapted for this.
-          // The isCloudUrl parameter for cleanupImageUrl might need to be true for Appwrite.
-          cleanupImageUrl(content.fileId, true, content.type as SupabaseBucketType, content.storageProvider);
-        } else if (content.fileId && content.storageProvider === 'supabase') { // Example for Supabase if it stores full URLs
-            const isCloudUrl = content.fileId.includes('supabase'); // or some other check
+        if (content.fileId && content.storageProvider === 'supabase') { 
+            const isCloudUrl = content.fileId.includes('supabase'); 
             cleanupImageUrl(content.fileId, isCloudUrl, content.type as SupabaseBucketType, content.storageProvider);
         } else if (content.imagePreview && content.imagePreview.startsWith('blob:')) {
             // Cleanup local blob previews if they weren't cleaned up elsewhere
@@ -82,8 +76,8 @@ export const useContentManager = (): ContentManagerHook => {
       const contentToDelete = prev.find((item: ContentItem) => item.id === id);
 
       // Cleanup image URL if it exists
-      if (contentToDelete?.fileId && contentToDelete.storageProvider) {
-        const isCloudUrl = contentToDelete.storageProvider === 'appwrite' || contentToDelete.storageProvider === 'supabase';
+      if (contentToDelete?.fileId && contentToDelete.storageProvider === 'supabase') {
+        const isCloudUrl = contentToDelete.fileId.includes('supabase');
         const bucketType = contentToDelete.type as SupabaseBucketType;
 
         // Clean up the image file from storage
@@ -102,7 +96,7 @@ export const useContentManager = (): ContentManagerHook => {
     file: File,
     type: 'banner' | 'scanner' | 'gallery',
     title = 'Uploaded Image',
-    storageProvider: 'appwrite' | 'supabase' = 'supabase'
+    storageProvider: 'supabase' = 'supabase'
   ): Promise<string> => {
     console.log(`Starting upload of ${type} image:`, {
       fileName: file.name,
@@ -127,8 +121,7 @@ export const useContentManager = (): ContentManagerHook => {
                 type,
                 title,
                 content: '',
-                fileId: imageUrl, // imageUrl from callback is the Appwrite File ID
-                bucketId: storageProvider === 'appwrite' ? (type === 'scanner' ? 'gallery' : type) : undefined, // Store bucketId for Appwrite
+                fileId: imageUrl, 
                 imagePreview, // This is the local blob or result.file.url
                 scale: 1,
                 storageProvider

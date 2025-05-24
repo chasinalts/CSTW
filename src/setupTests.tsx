@@ -1,9 +1,10 @@
 // Setup file for Vitest tests
-import { vi, beforeAll, afterEach, afterAll } from 'vitest';
+import { vi, beforeAll, afterEach, afterAll, expect } from 'vitest';
+import '@testing-library/jest-dom';
 import { server } from './mocks/server';
 import '@testing-library/jest-dom';
 import { setupSupabaseMock } from './__tests__/mocks/supabaseMock';
-import { setupAppwriteMock } from './__tests__/mocks/appwriteMock';
+
 import React from 'react';
 import { cleanup } from '@testing-library/react';
 import { configure } from '@testing-library/dom';
@@ -68,9 +69,8 @@ beforeAll(() => {
   // Setup MSW server
   server.listen({ onUnhandledRequest: 'warn' });
 
-  // Setup Supabase and Appwrite mocks
+  // Setup Supabase mock
   setupSupabaseMock();
-  setupAppwriteMock();
 
   // Setup Canvas mock for JSDOM
   setupCanvasMock();
@@ -95,15 +95,8 @@ afterAll(() => server.close());
 // Mock the import.meta.env values
 vi.stubGlobal('import.meta', {
   env: {
-    VITE_APPWRITE_ENDPOINT: 'https://cloud.appwrite.io/v1',
-    VITE_APPWRITE_PROJECT_ID: 'test-project',
-    VITE_APPWRITE_DATABASE_ID: 'test-database',
     VITE_SUPABASE_URL: 'https://example.supabase.co',
     VITE_SUPABASE_ANON_KEY: 'test-anon-key',
-    VITE_APPWRITE_IMAGES_BUCKET_ID: 'banner',
-    VITE_APPWRITE_BANNER_BUCKET_ID: 'banner',
-    VITE_APPWRITE_GALLERY_BUCKET_ID: 'gallery',
-    VITE_APPWRITE_SCANNER_BUCKET_ID: 'scanner',
     VITE_SUPABASE_BANNER_BUCKET: 'banner',
     VITE_SUPABASE_GALLERY_BUCKET: 'gallery',
     VITE_SUPABASE_SCANNER_BUCKET: 'scanner',

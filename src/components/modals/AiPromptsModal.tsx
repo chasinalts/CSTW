@@ -266,8 +266,8 @@ The AI will provide you with:
         priceSourceInput = input.source(close, title="Source")
 
         // Inside your loop or for a specific symbol:
-        [currentRsiValue, isBuy] = request.security(symInfo.tickerid, timeframe.period, 
-                                     f_my_signal(rsiLengthInput, priceSourceInput)) 
+        [currentRsiValue, isBuy] = request.security(symInfo.tickerid, timeframe.period,
+                                     f_my_signal(rsiLengthInput, priceSourceInput))
         // Now 'currentRsiValue' and 'isBuy' hold the results for the symbol 'symInfo.tickerid'
         \`\`\`
 
@@ -292,7 +292,7 @@ const AiPromptsModal: React.FC<AiPromptsModalProps> = ({ isOpen, onClose }) => {
   const handleCopy = async (textToCopy: string, type: string) => {
     try {
       await navigator.clipboard.writeText(textToCopy);
-      alert(\`\${type} copied to clipboard!\`);
+      alert(type + " copied to clipboard!");
     } catch (err) {
       console.error('Failed to copy text: ', err);
       alert('Failed to copy text.');
@@ -302,33 +302,33 @@ const AiPromptsModal: React.FC<AiPromptsModalProps> = ({ isOpen, onClose }) => {
   // Basic HTML formatting for guides (replace newlines with <br /> for simple paragraphs)
   const formatGuideText = (text: string) => {
     return text
-      .split('\\n\\n') // Split by double newlines for paragraphs
-      .map((paragraph, index) => \`<\p key=\${index}>\${paragraph.replace(/\\n/g, '<br />')}</p>\`)
+      .split('\n\n') // Split by double newlines for paragraphs
+      .map((paragraph, index) => "<p key=" + index + ">" + paragraph.replace(/\n/g, '<br />') + "</p>")
       .join('');
   };
-  
+
   // More sophisticated formatting for guides if they contain markdown-like elements
   const formatGuideWithMarkdown = (text: string) => {
     let html = text;
     // Titles (## and ###)
     html = html.replace(/^## (.*$)/gim, '<h3 class="text-xl font-semibold text-cyan-300 mt-4 mb-2">$1</h3>');
     html = html.replace(/^### (.*$)/gim, '<h4 class="text-lg font-semibold text-cyan-400 mt-3 mb-1">$1</h4>');
-    
+
     // Bold (**text** or __text__)
     html = html.replace(/\*\*(.*?)\*\*|__(.*?)__/gim, '<strong>$1$2</strong>');
-    
+
     // Italic (*text* or _text_)
     html = html.replace(/\*(.*?)\*|_(.*?)_/gim, '<em>$1$2</em>');
 
     // Inline code (`code`)
     html = html.replace(/`(.*?)`/gim, '<code class="bg-gray-700 text-yellow-300 px-1 py-0.5 rounded text-sm">$1</code>');
-    
+
     // Lists (- item or * item) - basic handling
     html = html.replace(/^\s*[-*]\s+(.*$)/gim, '<li class="ml-4">$1</li>');
     html = html.replace(/(\<li.*?\<\/li\>)+/gim, '<ul class="list-disc list-inside mb-2">$1</ul>');
 
     // Paragraphs (split by double newline, then wrap single newlines in <br>)
-    html = html.split('\\n\\n').map(p => \`<p class="mb-2">\${p.replace(/\\n/g, '<br />')}</p>\`).join('');
+    html = html.split('\n\n').map(p => "<p class=\"mb-2\">" + p.replace(/\n/g, '<br />') + "</p>").join('');
 
     return html;
   };
@@ -340,18 +340,18 @@ const AiPromptsModal: React.FC<AiPromptsModalProps> = ({ isOpen, onClose }) => {
         <HolographicText text="AI Assistant Prompts & User Guides" as="h1" variant="title" className="text-center mb-6 text-3xl" />
 
         <div className="space-y-8 max-h-[80vh] overflow-y-auto p-4 custom-scrollbar"> {/* Added custom-scrollbar if defined elsewhere */}
-          
+
           {/* Section 1: TickerID & NameID Generation */}
           <section className="p-4 rounded-lg border border-cyan-600/50 bg-gray-800/30 shadow-lg futuristic-container has-scanline">
             <HolographicText text="Prompt & Guide for TickerID/NameID String Generation" as="h2" variant="subtitle" className="text-2xl mb-4 text-cyan-300" />
-            
+
             <div className="mb-6">
               <label className="block text-sm font-medium text-cyan-400 mb-1">Prompt for your AI:</label>
               <div className="relative bg-gray-900/80 border border-gray-700 p-3 rounded-md max-h-72 overflow-y-auto custom-scrollbar">
                 <pre className="text-xs text-gray-300 whitespace-pre-wrap break-words">{PROMPT_TICKERID_NAMEID}</pre>
-                <Button 
+                <Button
                   onClick={() => handleCopy(PROMPT_TICKERID_NAMEID, "TickerID/NameID Prompt")}
-                  variant="secondary" 
+                  variant="secondary"
                   size="sm"
                   className="absolute top-2 right-2 btn-accent !py-1 !px-2 text-xs" // Use btn-accent, ensure high specificity
                 >
@@ -362,7 +362,7 @@ const AiPromptsModal: React.FC<AiPromptsModalProps> = ({ isOpen, onClose }) => {
 
             <div>
               <label className="block text-sm font-medium text-cyan-400 mb-1">How to use this prompt (User Guide):</label>
-              <div 
+              <div
                 className="text-sm text-gray-300 leading-relaxed p-3 border border-gray-700 rounded-md bg-gray-900/50 max-h-72 overflow-y-auto custom-scrollbar"
                 dangerouslySetInnerHTML={{ __html: formatGuideWithMarkdown(GUIDE_TICKERID_NAMEID) }}
               />
@@ -372,14 +372,14 @@ const AiPromptsModal: React.FC<AiPromptsModalProps> = ({ isOpen, onClose }) => {
           {/* Section 2: PineScript Logic-to-Function Conversion */}
           <section className="p-4 rounded-lg border border-purple-600/50 bg-gray-800/30 shadow-lg futuristic-container has-scanline">
             <HolographicText text="Prompt & Guide for PineScript Logic-to-Function" as="h2" variant="subtitle" className="text-2xl mb-4 text-purple-300" />
-            
+
             <div className="mb-6">
               <label className="block text-sm font-medium text-purple-400 mb-1">Prompt for your AI:</label>
               <div className="relative bg-gray-900/80 border border-gray-700 p-3 rounded-md max-h-72 overflow-y-auto custom-scrollbar">
                 <pre className="text-xs text-gray-300 whitespace-pre-wrap break-words">{PROMPT_PINESCRIPT_LOGIC_TO_FUNCTION}</pre>
-                <Button 
+                <Button
                   onClick={() => handleCopy(PROMPT_PINESCRIPT_LOGIC_TO_FUNCTION, "PineScript Logic-to-Function Prompt")}
-                  variant="secondary" 
+                  variant="secondary"
                   size="sm"
                   className="absolute top-2 right-2 btn-accent !py-1 !px-2 text-xs" // Use btn-accent
                 >
@@ -390,7 +390,7 @@ const AiPromptsModal: React.FC<AiPromptsModalProps> = ({ isOpen, onClose }) => {
 
             <div>
               <label className="block text-sm font-medium text-purple-400 mb-1">How to use this prompt (User Guide):</label>
-              <div 
+              <div
                 className="text-sm text-gray-300 leading-relaxed p-3 border border-gray-700 rounded-md bg-gray-900/50 max-h-72 overflow-y-auto custom-scrollbar"
                 dangerouslySetInnerHTML={{ __html: formatGuideWithMarkdown(GUIDE_PINESCRIPT_LOGIC_TO_FUNCTION) }}
               />

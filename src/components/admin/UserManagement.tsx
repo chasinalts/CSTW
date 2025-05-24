@@ -1,6 +1,4 @@
 import { useState, useEffect } from '../../utils/react-imports';
-import { account, databases, DATABASE_ID, USER_PROFILES_COLLECTION_ID } from '../../appwriteConfig.ts';
-import { ID, Query } from 'appwrite';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../components/ui/Toast';
 import Button from '../../components/ui/Button';
@@ -196,8 +194,9 @@ const UserManagement = () => {
         return;
       }
 
-      // Create user with Appwrite Auth
-      let userId;
+            // Create user with Auth0 (This would typically be done via a backend/management API)
+      // For now, we'll simulate creation and focus on profile management
+      let userId = uuidv4(); // Simulate a new user ID
       try {
         const user = await account.create(
           ID.unique(),

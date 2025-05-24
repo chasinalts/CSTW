@@ -1,11 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   handleImageUpload,
-  handleAppwriteImageUpload,
   handleSupabaseImageUpload,
   resizeImage
 } from '../utils/imageHandlers';
-import * as appwriteStorage from '../utils/appwriteStorage';
 import * as supabaseStorage from '../utils/supabaseImageStorage';
 import * as imageCompression from '../utils/imageCompression';
 
@@ -13,20 +12,6 @@ import * as imageCompression from '../utils/imageCompression';
 import '../setupTests';
 
 // Mock the modules
-vi.mock('../utils/appwriteStorage', () => ({
-  uploadFile: vi.fn().mockResolvedValue({
-    file: {
-      $id: 'appwrite-file-id',
-      $createdAt: new Date().toISOString(),
-      name: 'test-image.jpg',
-      mimeType: 'image/jpeg',
-      sizeOriginal: 1024,
-      bucketId: 'banner',
-      url: 'https://example.com/test-image.jpg'
-    }
-  })
-}));
-
 vi.mock('../utils/supabaseImageStorage', () => ({
   uploadFile: vi.fn().mockResolvedValue({
     $id: 'supabase-file-id',
@@ -52,25 +37,13 @@ describe('Image Handlers', () => {
   });
 
   describe('handleImageUpload', () => {
-    it.skip('should use Appwrite by default', async () => {
-      const onSuccess = vi.fn();
-      const onError = vi.fn();
-
-      await handleImageUpload(mockFile, 'banner', onSuccess, onError, 'user-123');
-
-      expect(appwriteStorage.uploadFile).toHaveBeenCalled();
-      expect(supabaseStorage.uploadFile).not.toHaveBeenCalled();
-      expect(onSuccess).toHaveBeenCalledWith('appwrite-file-id', expect.any(String));
-    });
-
-    it.skip('should use Supabase when specified', async () => {
+    it.skip('should use Supabase', async () => {
       const onSuccess = vi.fn();
       const onError = vi.fn();
 
       await handleImageUpload(mockFile, 'banner', onSuccess, onError, 'user-123', 'supabase');
 
       expect(supabaseStorage.uploadFile).toHaveBeenCalled();
-      expect(appwriteStorage.uploadFile).not.toHaveBeenCalled();
       expect(onSuccess).toHaveBeenCalledWith('supabase-file-id', expect.any(String));
     });
 
@@ -79,24 +52,12 @@ describe('Image Handlers', () => {
       const onError = vi.fn();
 
       // Mock an upload error
-      vi.mocked(appwriteStorage.uploadFile).mockRejectedValueOnce(new Error('Upload failed'));
+      vi.mocked(supabaseStorage.uploadFile).mockRejectedValueOnce(new Error('Upload failed'));
 
-      await handleImageUpload(mockFile, 'banner', onSuccess, onError, 'user-123');
+      await handleImageUpload(mockFile, 'banner', onSuccess, onError, 'user-123', 'supabase');
 
       expect(onError).toHaveBeenCalledWith(expect.any(Error));
       expect(onSuccess).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('handleAppwriteImageUpload', () => {
-    it.skip('should upload an image to Appwrite', async () => {
-      const onSuccess = vi.fn();
-      const onError = vi.fn();
-
-      await handleAppwriteImageUpload(mockFile, 'banner', onSuccess, onError, 'user-123');
-
-      expect(appwriteStorage.uploadFile).toHaveBeenCalledWith(mockFile, 'banner', 'user-123');
-      expect(onSuccess).toHaveBeenCalledWith('appwrite-file-id', expect.any(String));
     });
   });
 
